@@ -18,6 +18,8 @@ exports.initGame = function(sio, socket){
     gameSocket.on('hostCountdownFinished', hostStartGame);
     gameSocket.on('hostNextRound', hostNextRound);
     gameSocket.on('checkCardAnswer', checkNumber);
+    gameSocket.on('hostCardHover', hostHover);
+    gameSocket.on('hostCardSelected', hostCardSelected);
 
     // Player Events
     gameSocket.on('playerJoinGame', playerJoinGame);
@@ -25,13 +27,25 @@ exports.initGame = function(sio, socket){
     gameSocket.on('playerRestart', playerRestart);
 }
 
-var test = 0;
+var cardAnswer = 0;
 
 /* *******************************
    *                             *
    *       HOST FUNCTIONS        *
    *                             *
    ******************************* */
+
+
+function hostCardSelected(data){
+    io.sockets.in(data.gameId).emit('cardSelected', data);
+}
+
+
+function hostHover(data){
+    io.sockets.in(data.gameId).emit('cardHover', data);
+}
+
+
 
 /**
  * The 'START' button was clicked and 'hostCreateNewGame' event occurred.
@@ -68,7 +82,7 @@ function hostPrepareGame(gameId) {
  */
 function hostStartGame(gameId) {
     console.log('Game Started.');
-    sendWord(0,gameId);
+    sendCards(0,gameId);
 };
 
 /**
@@ -76,9 +90,9 @@ function hostStartGame(gameId) {
  * @param data Sent from the client. Contains the current round and gameId (room)
  */
 function hostNextRound(data) {
-    if(data.round < wordPool.length ){
+    if(data.round < cardPool.length ){
         // Send a new set of words back to the host and players.
-        sendWord(data.round, data.gameId);
+        sendCards(data.round, data.gameId);
     } else {
         // If the current round exceeds the number of words, send the 'gameOver' event.
         io.sockets.in(data.gameId).emit('gameOver',data);
@@ -160,9 +174,10 @@ function playerRestart(data) {
  * @param wordPoolIndex
  * @param gameId The room identifier
  */
-function sendWord(wordPoolIndex, gameId) {
-    var data = getCardCombo(wordPoolIndex);
-    io.sockets.in(gameId).emit('newWordData', data);
+function sendCards(cardRound, gameId) {
+    console.log(cardRound, gameId)
+    var data = getCardCombo(cardRound, gameId);
+    io.sockets.in(gameId).emit('newCardsData', data);
 
 }
 
@@ -197,11 +212,14 @@ function getWordData(i){
     return wordData;
 }
 
+
+
 function getCardCombo(i){
+    console.log('getCarddCombo number = ', i)
     var getNumb = Math.floor(Math.random() * cardPool.length)
-    var cards = cardPool[getNumb].cards
-    test = cardPool[getNumb].answer;
-    console.log(test)
+    var cards = cardPool[i].cards
+    cardAnswer = cardPool[i].answer;
+    console.log(cardAnswer)
     var cardData = {
         round: i,
         key: getNumb,
@@ -238,14 +256,18 @@ function shuffle(array) {
 
 function checkNumber(data){
     var result;
-    if (test == data.answer){
+
+    console.log(data)
+    if (cardAnswer == data.userAnswer.cardNumber){
        result = 'correct';
     }
     else {
         result = 'incorrect'
     }
-    io.sockets.in(gameId).emit('returnResult', result);
+    io.sockets.in(data.gameId).emit('returnResult', data, result);
 }
+
+
 
 /**
  * Each element in the array provides data for a single round in the game.
@@ -310,19 +332,19 @@ var wordPool = [
 
 var cardPool = [
     {
-        "cards": ['MAGE_CFM_065_VolcanicPotion', 'MAGE_CFM_671_Cryomancer', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia'],
-        "answer": '65'
+        "cards": ['zzNEUTRAL_CFM_341_SergeantSally', 'MAGE_CFM_065_VolcanicPotion', 'HUNTER_CFM_337_PiranhaLauncher'],
+        "answer": 3,
     },
     {
-        "cards": ['MAGE_CFM_671_Cryomancer', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia', 'MAGE_CFM_065_VolcanicPotion'],
-        "answer": '61'
+        "cards": ['zzNEUTRAL_CFM_039_StreetTrickster', 'zzNEUTRAL_CFM_637_PatchesthePirate', 'ROGUE_CFM_694_ShadowSensei', 'WARRIOR_CFM_643_HobartGrapplehammer'],
+        "answer": 2
     },
     {
-        "cards": ['PRIEST_CFM_603_PotionofMadness', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia', 'MAGE_CFM_065_VolcanicPotion'],
-        "answer": '41'
+        "cards": ['PALADIN_CFM_639_GrimestreetEnforcer', 'HUNTER_CFM_333_Knuckles', 'zzNEUTRAL_CFM_656_StreetwiseInvestigator', 'zzNEUTRAL_CFM_672_MadamGoya', 'WARRIOR_CFM_631_BrassKnuckles'],
+        "answer": 5
     },
     {
-        "cards": ['PRIEST_CFM_603_PotionofMadness', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia', 'MAGE_CFM_660_ManicSoulcaster'],
-        "answer": '25'
+        "cards": ['SHAMAN_CFM_696_Devolve', 'PRIEST_CFM_657_KabalSongstealer', 'ROGUE_CFM_630_CounterfeitCoin', 'zzNEUTRAL_CFM_807_AuctionmasterBeardo', 'HUNTER_CFM_316_RatPack'],
+        "answer": 3
     }
 ]

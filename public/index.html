@@ -25,13 +25,15 @@
         <div class="titleWrapper">
 
             <div class="title">
-                Vault Game
+                <img src="http://us.battle.net/hearthstone/static/images/logos/logo.png?v=58-28" alt="">
+                <h1>Puzzle Card "Game"</h1>
+                <h5>(Not really a game, just a websocket experiment thingy)</h5>
             </div>
 
             <div class="buttons">
 
-                <button id="btnCreateGame" class="btn left">CREATE</button>
-                <button id="btnJoinGame" class="btn right">JOIN</button>
+                <button id="btnCreateGame" class="btn ">CREATE</button>
+                <button id="btnJoinGame" class="btn ">JOIN</button>
                 <div style="clear:both"></div>
             </div>
 
@@ -44,8 +46,10 @@
         <div class="createGameWrapper">
 
 
-            <div id="gameURL" class="infoBig details">Error!</div>
-            <div class="info">
+            <div id="gameURL" class="infoBig details">
+                <div class="info details">Share the following URL:</div>
+            </div>
+            <div class="info infoName">
                 <label for="inputPlayerName">Your Name:</label>
                 <input id="inputPlayerName" type="text" />
             </div>
@@ -54,15 +58,18 @@
             </div>
 
 
+
+            <div class="info details">Have someone else join with you. Give them this ID:</div>
+            <div id="spanNewGameCode" class="gameId details">Error!</div>
             <div class="info buttons details" >
                 <button id="startGame" class="btn">Waiting on Players...</button>
                 <div id="playerWaitingMessage"></div>
+
             </div>
 
-            <div class="info details">Then click <strong>JOIN</strong> and <br/> enter the following Game ID:</div>
-            <div id="spanNewGameCode" class="gameId details">Error!</div>
-
-            <div id="playersWaiting"></div>
+            <div id="playersWaiting">
+                <h5>Players in lobby:</h5>
+            </div>
 
         </div>
     </script>
@@ -81,22 +88,64 @@
             </div>
 
             <div class="info buttons">
-                <button id="btnStart" class="btn">Start</button>
+                <button id="btnStart" class="btn">Join Game</button>
                 <div id="playerWaitingMessage"></div>
             </div>
         </div>
     </script>
 
     <!-- This is the 'Host' screen. It displays the word for each player to match -->
+    <script id="countdown-game-template" type="text/template">
+        <div id="wordArea">
+            <div id="hostWord">5</div>
+        </div>
+    </script>
+
     <script id="host-game-template" type="text/template">
         <div id="wordArea">
             <div id="hostWord">5</div>
         </div>
-        <div class="cardPool">
-
+        <div class="cardPool"></div>
+        <div class="manual">
+            <ul>
+                <li>3 Cards</li>
+                <ul>
+                    <li>If there are no potions, select the lowest mana card</li>
+                    <li>Otherwise, if the last card is a minion, select the highest mana cost card</li>
+                    <li>Otherwise, if there is a legendary, select the middle card</li>
+                    <li>Otherwise, select the first card</li>
+                </ul>
+                <li>4 Cards</li>
+                <ul>
+                   <li>If the first and last card both have a mana cost of 3, select the 2nd card</li>
+                    <li>Otherwise, if the last card has a mana cost of 2 and there are no Pirates, select the 1st card</li>
+                    <li>Otherwise, if there is just one Pirate, select the last card</li>
+                    <li>Otherwise, select the 3rd card</li>
+                </ul>
+                <li>5 Cards</li>
+                <ul>
+                    <li>If the last card is a Beast and the 2nd card is a weapon, select the 3rd card</li>
+                    <li>Otherwise, if there is more than one legendary card, select the 1st card</li>
+                    <li>Otherwise, if the combined mana cost of all the cards is 10, select the last card</li>
+                    <li>Otherwise, if there is a priest card, select the 4th card</li>
+                    <li>Otherwise, select the 2nd card.</li>
+                </ul>
+            </ul>
         </div>
-        <input type="text" id="cardNumber">
-        <button id="submitCardNumber">Enter answer</button>
+
+    </script>
+
+    <!-- This is the 'Host' screen. It displays the word for each player to match -->
+    <script id="player-game-template" type="text/template">
+
+        <div class="cardPool"></div>
+        <div class="answerField">
+            <h5>Enter the <span class="emph">mana cost</span> of the flipped over card and hit submit!</h5>
+            <p>The first player is figuring out the riddle. With more development, you be doing something else interactive / game like while he decides on a selection</p>
+            <input type="text" id="cardNumber">
+            <button id="submitCardNumber">Enter Mana Cost of Selected Card</button>
+        </div>
+
     </script>
 
     <!-- JavaScript Libraries -->

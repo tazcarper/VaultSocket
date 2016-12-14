@@ -8,7 +8,7 @@ Dark Purple : #A22FB0
 */
 
 html, body {
-    background-color: white;
+    background: transparent url(http://us.battle.net/hearthstone/static/images/body-content-bg.jpg) 50% 0 repeat-y;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -16,6 +16,14 @@ html, body {
     color: black;
 }
 
+h1 {
+    font-size: 55px;
+    margin-bottom:0;
+}
+h5 {
+    font-size: 16px;
+    margin-top:0;
+}
 
 
 /* ******************************
@@ -26,15 +34,15 @@ html, body {
 .btn {
     display: inline-block;
     height: 100%;
-    width: 49%;
-    margin-bottom: 0;
+    width: auto;
+    padding:10px 20px;
     color: #fff;
-    font-family: 'Quicksand', sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 700;
-    font-size: 2em;
+    font-size: 20px;
     line-height: 1.2;
     text-align: center;
-    background-color: red;
+   background: radial-gradient(circle, #bc22c7 25%, #7c1693 75%, #5c1096);
     white-space: nowrap;
     vertical-align: middle;
     cursor: pointer;
@@ -44,6 +52,10 @@ html, body {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    border-radius:15px;
+    margin: 15px ;
+
+    text-shadow: 0 0 4px #000, 0 0 8px #000;
 }
 
 .btn:focus {
@@ -54,7 +66,7 @@ html, body {
 
 .btn:hover,
 .btn:focus {
-    color: yellow;
+    background: radial-gradient(circle, #e235ee 22%, #981cb4);
     text-decoration: none;
 }
 
@@ -84,9 +96,9 @@ html, body {
 }
 
 .titleWrapper {
-    font-family: 'Quicksand', sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 400;
-    position: absolute;
+    position: relative;
     height: 50%;
     width: 96%;
     margin: auto;
@@ -94,19 +106,20 @@ html, body {
     left: 0;
     top: 0;
     right: 0;
+    padding-top:120px;
 }
 
 .title {
     margin: 0px auto;
     text-align: center;
     width: 100%;
-    font-family: 'Quicksand', sans-serif;
+    font-family: Arial, sans-serif;
     color: black;
     font-weight: 300;
 }
 
 .buttons {
-    width: 100%;
+
     text-align: center;
 }
 
@@ -116,7 +129,7 @@ html, body {
    ****************************** */
 
 .createGameWrapper, .joinGameWrapper, .gameOver {
-    font-family: 'Quicksand', sans-serif;
+   font-family: Arial, sans-serif;
     margin: 0 auto;
     text-align: center;
 }
@@ -125,12 +138,24 @@ html, body {
     color: black;
     font-weight: 400;
     font-size: 2em;
-    margin-top: 1.5em;
+
+
+}
+
+.createGameWrapper .info .btn {
+    margin-top:35px;
+}
+.createGameWrapper .infoName {
+    padding-top:120px;
 }
 
 .createGameWrapper{
-    color: red;
+    color: black;
     font-weight: 300;
+}
+
+.createGameWrapper p {
+    margin: 0;
 }
 
 .info label {
@@ -140,22 +165,22 @@ html, body {
 .info input {
     text-align: center;
     padding: 10px;
-    width: 200px;
-    height: 60px;
-    font-family: 'Quicksand', sans-serif;
+    width: 10%;
+    min-width: 300px;
+
+    font-family: Arial, sans-serif;
     color: #A22FB0;
     font-weight: 300;
     font-size: 54px;
+    margin-top:35px;
     border: 1px dotted white;
     border-radius: 10px;
-    color: red;
+    color: black;
     background: white;
     border: 2px solid black;
 }
 
-.info input#inputPlayerName {
-    width: 90%;
-}
+
 
 
 /* ******************************
@@ -166,32 +191,36 @@ html, body {
 .joinGameWrapper {
     margin: 0;
     padding: 0;
-    height: 100%;
-    min-height: 320px;
+    padding-top: 150px;
 }
 
 .joinGameWrapper .info {
     font-size: 1.5em;
-    color: red;
-    height: 30%;
+    color: black;
+
     padding-top: 1%;
 }
 
 .joinGameWrapper .btn {
-    width: 100%;
-    height: 50%;
+
+
 }
+
+.
 
 #playerWaitingMessage {
     font-size: .8em;
 }
 
 .createGameWrapper #gameURL {
-    font-size: 4em;
+    font-size: 2.5em;
+    margin-top:60px;
 }
 
 .createGameWrapper .gameId {
-    font-size: 8em;
+    font-size: 6em;
+    font-weight:bold;
+    margin-top:0;
 }
 
 
@@ -231,7 +260,7 @@ html, body {
 
 /* Absolute Centering: http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/ */
 #wordArea {
-    font-family: 'Quicksand', sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 400;
     position: absolute;
     height: 50%;
@@ -251,7 +280,7 @@ html, body {
 #hostWord h2, #btnPlayerRestart h3 {
     font-size: 161px;
     line-height: 1em;
-    font-family: 'Quicksand', sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 400;
     margin: 0;
     padding: 0;
@@ -265,11 +294,24 @@ html, body {
     top: 0;
 }
 
+#playersWaiting {
+    display:none;
+    font-size: 20px;
+}
+
+#playersWaiting h5 {
+    font-size: 24px;
+    color: black;
+    margin-top:150px;
+    text-decoration: underline;
+    margin-bottom:5px;
+}
+
 .playerScore {
     width: 50%;
     padding: 0;
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 400;
     height: 100%;
 }
@@ -324,4 +366,136 @@ html, body {
 
 .details {
     display: none;
+    margin-top:50px;
+}
+
+.manual {
+  width: 960px;
+    margin: auto;
+    font-size: 20px;
+    margin-top:50px;
+}
+
+.manual ul {
+    list-style: none;
+    padding: 0;
+}
+
+.manual ul li {
+    font-weight: bold;
+}
+
+.manual ul ul li {
+    font-weight: normal;
+    list-style: disc;
+    margin: 3px 0;
+}
+
+.emph {
+    text-decoration: underline;
+    color:blue;
+    text-transform: uppercase;
+}
+
+.answerField {
+    display:block;
+    margin: 55px auto;
+    text-align:center;
+}
+#submitCardNumber, #cardNumber {
+    font-size:24px;
+}
+.cardPool {
+    overflow: hidden;
+    text-align: center;
+}
+.imgContainer {
+    width: 20%;
+    display:inline-block;
+    position:relative;
+    text-align:center;
+}
+
+
+.cardBack {
+    transition: all .2s ease-out;
+    width: 226px;
+    margin: 50px 0 0 0;
+    z-index:1;
+}
+
+.cardBack::before {
+    width: 48%;
+    height: 73%;
+}
+
+.selectedCard {
+    position: absolute;
+    top:5%;
+    left: 5%;
+}
+
+.cardImage {
+    transition: all .2s ease-out;
+    position:relative;
+}
+
+.imgContainer::before {
+    transition: all .2s ease-out;
+    content:'';
+    position:absolute;
+    top: 25%;
+    left: 32%;
+    width: 43%;
+    height: 59%;
+}
+
+.imgContainer.selected::before{
+    -webkit-animation: neon5 1.5s ease-in-out infinite alternate;
+    -moz-animation: neon5 1.5s ease-in-out infinite alternate;
+    animation: neon5 1.5s ease-in-out infinite alternate;
+    content:'';
+    width: 43%;
+    height: 59%;
+
+    display:block;
+
+}
+
+.cardImage:hover {
+    transform: scale(1.02)
+}
+
+.highlight::before {
+    -webkit-animation: neon5 1.5s ease-in-out infinite alternate;
+    -moz-animation: neon5 1.5s ease-in-out infinite alternate;
+    animation: neon5 1.5s ease-in-out infinite alternate;
+
+}
+
+@keyframes neon5 {
+    from {
+        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
+    }
+    to {
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+    }
+}
+
+@-webkit-keyframes neon5 {
+    from {
+        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
+    }
+    to {
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+    }
+}
+
+@-moz-keyframes neon5 {
+    from {
+        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
+    }
+    to {
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+    }
 }
