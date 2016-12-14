@@ -25,7 +25,7 @@
         <div class="titleWrapper">
 
             <div class="title">
-                ANAGRAMMATIX
+                Vault Game
             </div>
 
             <div class="buttons">
@@ -43,13 +43,27 @@
     <script id="create-game-template" type="text/template">
         <div class="createGameWrapper">
 
-            <div class="info">Open this site on your mobile device:</div>
-            <div id="gameURL" class="infoBig">Error!</div>
 
-            <div class="info">Then click <strong>JOIN</strong> and <br/> enter the following Game ID:</div>
-            <div id="spanNewGameCode" class="gameId">Error!</div>
+            <div id="gameURL" class="infoBig details">Error!</div>
+            <div class="info">
+                <label for="inputPlayerName">Your Name:</label>
+                <input id="inputPlayerName" type="text" />
+            </div>
+            <div class="info">
+                <button id="nameButton" class="btn">Enter</button>
+            </div>
+
+
+            <div class="info buttons details" >
+                <button id="startGame" class="btn">Waiting on Players...</button>
+                <div id="playerWaitingMessage"></div>
+            </div>
+
+            <div class="info details">Then click <strong>JOIN</strong> and <br/> enter the following Game ID:</div>
+            <div id="spanNewGameCode" class="gameId details">Error!</div>
 
             <div id="playersWaiting"></div>
+
         </div>
     </script>
 
@@ -78,14 +92,11 @@
         <div id="wordArea">
             <div id="hostWord">5</div>
         </div>
-        <div id="playerScores">
-            <div id="player1Score" class="playerScore">
-                <span class="score">0</span><span class="playerName">Player 1</span>
-            </div>
-            <div id="player2Score" class="playerScore">
-                <span class="playerName">Player 2</span><span class="score">0</span>
-            </div>
+        <div class="cardPool">
+
         </div>
+        <input type="text" id="cardNumber">
+        <button id="submitCardNumber">Enter answer</button>
     </script>
 
     <!-- JavaScript Libraries -->

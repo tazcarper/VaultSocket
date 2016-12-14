@@ -1,18 +1,19 @@
 /*
 
- Dark Green : #78BD4C
-  Mid Green : #A8FF56
+ Dark Green : #000000
+  Mid Green : #000000
        Lite : #ECFFE0
 Dark Purple : #A22FB0
 
 */
 
 html, body {
-    background-color: #78BD4C;
+    background-color: white;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+    color: black;
 }
 
 
@@ -27,13 +28,13 @@ html, body {
     height: 100%;
     width: 49%;
     margin-bottom: 0;
-    color: #ECFFE0;
+    color: #fff;
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
     font-size: 2em;
     line-height: 1.2;
     text-align: center;
-    background-color: #8AD453;
+    background-color: red;
     white-space: nowrap;
     vertical-align: middle;
     cursor: pointer;
@@ -53,7 +54,7 @@ html, body {
 
 .btn:hover,
 .btn:focus {
-    color: #AE37B2;
+    color: yellow;
     text-decoration: none;
 }
 
@@ -100,7 +101,7 @@ html, body {
     text-align: center;
     width: 100%;
     font-family: 'Quicksand', sans-serif;
-    color: #ECFFE0;
+    color: black;
     font-weight: 300;
 }
 
@@ -121,14 +122,14 @@ html, body {
 }
 
 .createGameWrapper .info{
-    color: #ECFFE0;
+    color: black;
     font-weight: 400;
     font-size: 2em;
     margin-top: 1.5em;
 }
 
 .createGameWrapper{
-    color: #AE37B2;
+    color: red;
     font-weight: 300;
 }
 
@@ -147,7 +148,9 @@ html, body {
     font-size: 54px;
     border: 1px dotted white;
     border-radius: 10px;
-    background: transparent;
+    color: red;
+    background: white;
+    border: 2px solid black;
 }
 
 .info input#inputPlayerName {
@@ -169,7 +172,7 @@ html, body {
 
 .joinGameWrapper .info {
     font-size: 1.5em;
-    color: #ECFFE0;
+    color: red;
     height: 30%;
     padding-top: 1%;
 }
@@ -281,7 +284,7 @@ html, body {
 
 .playerScore .score {
     text-align: center;
-    background-color: #A8FF56;
+    background-color: #000000;
 }
 
 .playerScore .playerName {
@@ -319,3 +322,6 @@ html, body {
 }
 
 
+.details {
+    display: none;
+}

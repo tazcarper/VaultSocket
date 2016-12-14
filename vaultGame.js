@@ -17,12 +17,15 @@ exports.initGame = function(sio, socket){
     gameSocket.on('hostRoomFull', hostPrepareGame);
     gameSocket.on('hostCountdownFinished', hostStartGame);
     gameSocket.on('hostNextRound', hostNextRound);
+    gameSocket.on('checkCardAnswer', checkNumber);
 
     // Player Events
     gameSocket.on('playerJoinGame', playerJoinGame);
     gameSocket.on('playerAnswer', playerAnswer);
     gameSocket.on('playerRestart', playerRestart);
 }
+
+var test = 0;
 
 /* *******************************
    *                             *
@@ -33,12 +36,13 @@ exports.initGame = function(sio, socket){
 /**
  * The 'START' button was clicked and 'hostCreateNewGame' event occurred.
  */
-function hostCreateNewGame() {
+function hostCreateNewGame(userName) {
+
     // Create a unique Socket.IO Room
     var thisGameId = ( Math.random() * 100000 ) | 0;
 
     // Return the Room ID (gameId) and the socket ID (mySocketId) to the browser client
-    this.emit('newGameCreated', {gameId: thisGameId, mySocketId: this.id});
+    this.emit('newGameCreated', {gameId: thisGameId, mySocketId: this.id, playerName: userName});
 
     // Join the Room and wait for the players
     this.join(thisGameId.toString());
@@ -54,7 +58,7 @@ function hostPrepareGame(gameId) {
         mySocketId : sock.id,
         gameId : gameId
     };
-    //console.log("All Players Present. Preparing game...");
+    console.log("All Players Present. Preparing game...");
     io.sockets.in(data.gameId).emit('beginNewGame', data);
 }
 
@@ -157,8 +161,9 @@ function playerRestart(data) {
  * @param gameId The room identifier
  */
 function sendWord(wordPoolIndex, gameId) {
-    var data = getWordData(wordPoolIndex);
-    io.sockets.in(data.gameId).emit('newWordData', data);
+    var data = getCardCombo(wordPoolIndex);
+    io.sockets.in(gameId).emit('newWordData', data);
+
 }
 
 /**
@@ -173,14 +178,14 @@ function getWordData(i){
     // The first element in the randomized array will be displayed on the host screen.
     // The second element will be hidden in a list of decoys as the correct answer
     var words = shuffle(wordPool[i].words);
-
+    console.log(words)
     // Randomize the order of the decoy words and choose the first 5
     var decoys = shuffle(wordPool[i].decoys).slice(0,5);
-
+    console.log(decoys)
     // Pick a random spot in the decoy list to put the correct answer
     var rnd = Math.floor(Math.random() * 5);
     decoys.splice(rnd, 0, words[1]);
-
+    console.log(decoys)
     // Package the words into a single object.
     var wordData = {
         round: i,
@@ -190,6 +195,20 @@ function getWordData(i){
     };
 
     return wordData;
+}
+
+function getCardCombo(i){
+    var getNumb = Math.floor(Math.random() * cardPool.length)
+    var cards = cardPool[getNumb].cards
+    test = cardPool[getNumb].answer;
+    console.log(test)
+    var cardData = {
+        round: i,
+        key: getNumb,
+        cardPool: cards
+    }
+
+    return cardData;
 }
 
 /*
@@ -215,6 +234,17 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function checkNumber(data){
+    var result;
+    if (test == data.answer){
+       result = 'correct';
+    }
+    else {
+        result = 'incorrect'
+    }
+    io.sockets.in(gameId).emit('returnResult', result);
 }
 
 /**
@@ -275,5 +305,24 @@ var wordPool = [
     {
         "words"  : [ "stone","tones","steno","onset" ],
         "decoys" : [ "snout","tongs","stent","tense","terns","santo","stony","toons","snort","stint" ]
+    }
+]
+
+var cardPool = [
+    {
+        "cards": ['MAGE_CFM_065_VolcanicPotion', 'MAGE_CFM_671_Cryomancer', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia'],
+        "answer": '65'
+    },
+    {
+        "cards": ['MAGE_CFM_671_Cryomancer', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia', 'MAGE_CFM_065_VolcanicPotion'],
+        "answer": '61'
+    },
+    {
+        "cards": ['PRIEST_CFM_603_PotionofMadness', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia', 'MAGE_CFM_065_VolcanicPotion'],
+        "answer": '41'
+    },
+    {
+        "cards": ['PRIEST_CFM_603_PotionofMadness', 'MAGE_CFM_066_KabalLackey', 'MAGE_CFM_660_ManicSoulcaster', 'MAGE_CFM_687_InkmasterIrelia', 'MAGE_CFM_660_ManicSoulcaster'],
+        "answer": '25'
     }
 ]
