@@ -2,16 +2,10 @@
 jQuery(function ($) {
     'use strict';
 
-    /**
-     * All the code relevant to Socket.IO is collected in the IO namespace.
-     *
-     * @type {{init: Function, bindEvents: Function, onConnected: Function, onNewGameCreated: Function, playerJoinedRoom: Function, beginNewGame: Function, onnewCardsData: Function, hostCheckAnswer: Function, gameOver: Function, error: Function}}
-     */
     var IO = {
 
         /**
-         * This is called when the page is displayed. It connects the Socket.IO client
-         * to the Socket.IO server
+         Connect client and server together on init
          */
         init: function () {
             IO.socket = io.connect();
@@ -19,8 +13,7 @@ jQuery(function ($) {
         },
 
         /**
-         * While connected, Socket.IO will listen to the following events emitted
-         * by the Socket.IO server, then run the appropriate function.
+         Event listeners for methods called from the Socket.IO server (vaultGame.js)
          */
         bindEvents: function () {
             IO.socket.on('connected', IO.onConnected);
@@ -39,12 +32,10 @@ jQuery(function ($) {
         },
 
 
-
-
+        // Card interaction when something is clicked. Add highlights, remove highlights, ect...
 
         cardInteraction: function (data) {
-            console.log(data)
-            console.log('fire')
+
             var playerCards = $('.cardPool');
             if (App.myRole === 'Player') {
                 // if (data.type === 'mouseover') {
@@ -53,7 +44,7 @@ jQuery(function ($) {
                 // if (data.type === 'mouseout') {
                 //     playerCards.find("[data-key='" + data.key + "']").parent().removeClass('highlight')
                 // }
-                if (data.type === 'click'){
+                if (data.type === 'click') {
                     $('.cardImage').remove();
                     $('.cardBack').css({'opacity': '1'});
                     $('.selectedCard').remove();
@@ -65,7 +56,7 @@ jQuery(function ($) {
                     var cardImg = $('<img class="selectedCard"/>');
                     cardImg.attr('src', data.src);
                     curParent.append(cardImg)
-                   // playerCards.find("[data-key='" + data.key + "']").attr('src', data.src)
+                    // playerCards.find("[data-key='" + data.key + "']").attr('src', data.src)
 
                 }
 
@@ -74,7 +65,8 @@ jQuery(function ($) {
 
 
         /**
-         * The client is successfully connected!
+         * Return result of submitted answer. Switch roles if correct. Gameover if not correct.
+         * @param data {{ gameId: int, mySocketId: * }}
          */
         submitResult: function (data, result) {
 
@@ -83,7 +75,7 @@ jQuery(function ($) {
                 App.currentRound += 1;
                 data.round = App.currentRound;
 
-                if (App.myRole === 'Host'){
+                if (App.myRole === 'Host') {
                     App.myRole = 'Player'
                 }
                 else {
@@ -94,6 +86,7 @@ jQuery(function ($) {
             else {
                 console.log('wrong');
                 $('body').css({'background': 'red'})
+                alert('Wrong answer. TODO: gameover stuff')
             }
 
         },
@@ -131,7 +124,7 @@ jQuery(function ($) {
         },
 
         /**
-         * Both players have joined the game.
+         * Both players have joined the game. Start it
          * @param data
          */
         beginNewGame: function (data) {
@@ -139,30 +132,20 @@ jQuery(function ($) {
         },
 
         /**
-         * A new set of words for the round is returned from the server.
+         * A new set of cards for the round is returned from the server.
          * @param data
          */
         onNewCardsData: function (data) {
             // Update the current round
             App.currentRound = data.round;
 
-            // Change the word for the Host and Player
+            // Change the cards for the Host and Player
             console.log(App.myRole)
             App[App.myRole].newCards(data);
         },
 
         /**
-         * A player answered. If this is the host, check the answer.
-         * @param data
-         */
-        hostCheckAnswer: function (data) {
-            if (App.myRole === 'Host') {
-                App.Host.checkAnswer(data);
-            }
-        },
-
-        /**
-         * Let everyone know the game has ended.
+         * Do something for gameover
          * @param data
          */
         gameOver: function (data) {
@@ -201,8 +184,7 @@ jQuery(function ($) {
         mySocketId: '',
 
         /**
-         * Identifies the current round. Starts at 0 because it corresponds
-         * to the array of word data stored on the server.
+         * Identifies the current round. Starts at 0
          */
         currentRound: 0,
 
@@ -274,12 +256,9 @@ jQuery(function ($) {
             App.$doc.on('click', '.cardImage', App.Host.selectCard);
 
 
-
             // Player
             App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
             App.$doc.on('click', '#btnStart', App.Player.onPlayerStartClick);
-            App.$doc.on('click', '.btnAnswer', App.Player.onPlayerAnswerClick);
-            App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
 
 
         },
@@ -325,7 +304,7 @@ jQuery(function ($) {
              */
             currentCorrectAnswer: '',
 
-            selectCard: function(data){
+            selectCard: function (data) {
                 console.log(data)
                 $('.selected').removeClass('selected')
                 $(data.currentTarget).parent().addClass('selected');
@@ -335,7 +314,7 @@ jQuery(function ($) {
                     gameId: App.gameId,
                     src: data.currentTarget.currentSrc
                 }
-               IO.socket.emit('hostCardSelected', cardData);
+                IO.socket.emit('hostCardSelected', cardData);
             },
 
             hoverEffect: function (data) {
@@ -388,7 +367,7 @@ jQuery(function ($) {
                 App.Host.players.push(data)
 
                 // uncomment to start with 1 person
-              //   IO.socket.emit('hostRoomFull', App.gameId);
+                // IO.socket.emit('hostRoomFull', App.gameId);
 
                 $('#playersWaiting')
                     .append('<p style="font-weight: bold;">' + data.playerName + '</p>');
@@ -406,7 +385,7 @@ jQuery(function ($) {
 
 
                 // Display the URL on screen
-                $('#gameURL').append('<p>'+window.location.href+'</p>');
+                $('#gameURL').append('<p>' + window.location.href + '</p>');
 
 
                 // Show the gameId / room id on screen
@@ -434,11 +413,11 @@ jQuery(function ($) {
                 // Increment the number of players in the room
                 App.Host.numPlayersInRoom += 1;
 
-                // If two players have joined, start the game!
+                // If two players have joined, the game can be started by the host.
                 if (App.Host.numPlayersInRoom === 2) {
-                    // console.log('Room is full. Almost ready!');
-                    console.log(App.Host.players)
-                    // Let the server know that two players are present.
+
+
+                    // Let the server know th egame can start once start game is clicked.
                     var startButton = $('#startGame');
                     startButton.text('START GAME');
                     startButton.on('click', function (e) {
@@ -462,8 +441,8 @@ jQuery(function ($) {
 
 
             /**
-             * Show the word for the current round on screen.
-             * @param data{{round: *, word: *, answer: *, list: Array}}
+             * Show the new cards
+             * @param data{{round: *, key: *, cardPool: Array}}
              */
             newCards: function (data) {
                 App.$gameArea.html(App.$hostGame);
@@ -486,7 +465,7 @@ jQuery(function ($) {
 
 
             /**
-             * All 10 rounds have played out. End the game.
+             * All rounds done. Show victory
              * @param data
              */
             endGame: function () {
@@ -519,7 +498,7 @@ jQuery(function ($) {
              * Click handler for the 'JOIN' button
              */
             onJoinClick: function () {
-                // console.log('Clicked "Join A Game"');
+
 
                 // Display the Join Game HTML on the player's screen.
                 App.$gameArea.html(App.$templateJoinGame);
@@ -546,38 +525,6 @@ jQuery(function ($) {
                 App.Player.myName = data.playerName;
             },
 
-            /**
-             *  Click handler for the Player hitting a word in the word list.
-             */
-            onPlayerAnswerClick: function () {
-                // console.log('Clicked Answer Button');
-                var $btn = $(this);      // the tapped button
-                var answer = $btn.val(); // The tapped word
-
-                // Send the player info and tapped word to the server so
-                // the host can check the answer.
-                var data = {
-                    gameId: App.gameId,
-                    playerId: App.mySocketId,
-                    answer: answer,
-                    round: App.currentRound
-                }
-                IO.socket.emit('playerAnswer', data);
-            },
-
-            /**
-             *  Click handler for the "Start Again" button that appears
-             *  when a game is over.
-             */
-            onPlayerRestart: function () {
-                var data = {
-                    gameId: App.gameId,
-                    playerName: App.Player.myName
-                }
-                IO.socket.emit('playerRestart', data);
-                App.currentRound = 0;
-                $('#gameArea').html("<h3>Waiting on host to start new game.</h3>");
-            },
 
             /**
              * Display the waiting screen for player 1
