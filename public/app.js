@@ -468,7 +468,7 @@ jQuery(function ($) {
             newCards: function (data) {
                 App.$gameArea.html(App.$hostGame);
                 // Insert the new cards into the DOM
-                $('#hostWord').hide();
+                $('#hostWord, #wordArea').hide();
                 console.log(data);
                 $('.cardPool').html('');
                 for (var i = 0; i < data.cardPool.length; i++) {
@@ -602,12 +602,12 @@ jQuery(function ($) {
              */
             newCards: function (data) {
                 App.$gameArea.html(App.$playerGame);
-
+                $('#hostWord, #wordArea').hide();
                 $('.cardPool').html('');
 
                 for (var i = 0; i < data.cardPool.length; i++) {
                     var cardImg = $('<img class="cardBack" data-key="' + i + '"/>');
-                    cardImg.attr('src', 'http://media-hearth.cursecdn.com/attachments/39/664/cardback_0.png');
+                    cardImg.attr('src', '/images/cardback_0.png');
                     var cardImgContainer = $('<div class="imgContainer" />').append(cardImg)
                     $('.cardPool').append(cardImgContainer)
                 }
@@ -618,7 +618,7 @@ jQuery(function ($) {
              */
             endGame: function () {
                 $('#gameArea')
-                    .html('<div class="gameOver"><img src="http://art.ngfiles.com/images/170000/170688_oman1996_victory-cat.png" alt=""></div>')
+                    .html('<div class="gameOver"><img src="/images/cat.png" alt=""></div>')
 
             }
         },

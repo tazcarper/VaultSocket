@@ -13,18 +13,18 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
-    color: black;
+    color: rgb(46, 46, 46);
 }
 
 h1 {
     font-size: 55px;
-    margin-bottom:0;
-}
-h5 {
-    font-size: 16px;
-    margin-top:0;
+    margin-bottom: 0;
 }
 
+h5 {
+    font-size: 16px;
+    margin-top: 0;
+}
 
 /* ******************************
               BUTTONS!
@@ -35,14 +35,14 @@ h5 {
     display: inline-block;
     height: 100%;
     width: auto;
-    padding:10px 20px;
+    padding: 10px 20px;
     color: #fff;
-    font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     font-weight: 700;
     font-size: 20px;
     line-height: 1.2;
     text-align: center;
-   background: radial-gradient(circle, #bc22c7 25%, #7c1693 75%, #5c1096);
+    background: radial-gradient(circle, #bc22c7 25%, #7c1693 75%, #5c1096);
     white-space: nowrap;
     vertical-align: middle;
     cursor: pointer;
@@ -52,8 +52,8 @@ h5 {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
-    border-radius:15px;
-    margin: 15px ;
+    border-radius: 15px;
+    margin: 15px;
 
     text-shadow: 0 0 4px #000, 0 0 8px #000;
 }
@@ -96,7 +96,7 @@ h5 {
 }
 
 .titleWrapper {
-    font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     font-weight: 400;
     position: relative;
     height: 50%;
@@ -106,14 +106,14 @@ h5 {
     left: 0;
     top: 0;
     right: 0;
-    padding-top:120px;
+    padding-top: 120px;
 }
 
 .title {
     margin: 0px auto;
     text-align: center;
     width: 100%;
-    font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     color: black;
     font-weight: 300;
 }
@@ -129,27 +129,27 @@ h5 {
    ****************************** */
 
 .createGameWrapper, .joinGameWrapper, .gameOver {
-   font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     margin: 0 auto;
     text-align: center;
 }
 
-.createGameWrapper .info{
+.createGameWrapper .info {
     color: black;
     font-weight: 400;
     font-size: 2em;
 
-
 }
 
 .createGameWrapper .info .btn {
-    margin-top:35px;
-}
-.createGameWrapper .infoName {
-    padding-top:120px;
+    margin-top: 35px;
 }
 
-.createGameWrapper{
+.createGameWrapper .infoName {
+    padding-top: 120px;
+}
+
+.createGameWrapper {
     color: black;
     font-weight: 300;
 }
@@ -168,20 +168,17 @@ h5 {
     width: 10%;
     min-width: 300px;
 
-    font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     color: #A22FB0;
     font-weight: 300;
     font-size: 54px;
-    margin-top:35px;
+    margin-top: 35px;
     border: 1px dotted white;
     border-radius: 10px;
     color: black;
     background: white;
     border: 2px solid black;
 }
-
-
-
 
 /* ******************************
            JOIN SCREEN
@@ -203,33 +200,28 @@ h5 {
 
 .joinGameWrapper .btn {
 
-
 }
 
 .
-
 #playerWaitingMessage {
     font-size: .8em;
 }
 
 .createGameWrapper #gameURL {
     font-size: 2.5em;
-    margin-top:60px;
+    margin-top: 60px;
 }
 
 .createGameWrapper .gameId {
     font-size: 6em;
-    font-weight:bold;
-    margin-top:0;
+    font-weight: bold;
+    margin-top: 0;
 }
-
-
 
 /* ******************************
           PLAYER GAME SCREEN
 
    ****************************** */
-
 
 #ulAnswers {
     width: 100%;
@@ -251,8 +243,6 @@ h5 {
     color: #AE37B2;
 }
 
-
-
 /* ******************************
             HOST SCREEN
        (host-game-template)
@@ -260,7 +250,7 @@ h5 {
 
 /* Absolute Centering: http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/ */
 #wordArea {
-    font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     font-weight: 400;
     position: absolute;
     height: 50%;
@@ -280,7 +270,7 @@ h5 {
 #hostWord h2, #btnPlayerRestart h3 {
     font-size: 161px;
     line-height: 1em;
-    font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     font-weight: 400;
     margin: 0;
     padding: 0;
@@ -295,23 +285,23 @@ h5 {
 }
 
 #playersWaiting {
-    display:none;
+    display: none;
     font-size: 20px;
 }
 
 #playersWaiting h5 {
     font-size: 24px;
     color: black;
-    margin-top:150px;
+    margin-top: 150px;
     text-decoration: underline;
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }
 
 .playerScore {
     width: 50%;
     padding: 0;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     font-weight: 400;
     height: 100%;
 }
@@ -343,7 +333,6 @@ h5 {
     text-align: right;
 }
 
-
 /* ******************************
           TITLE SCREEN
      (intro-screen-template)
@@ -363,17 +352,16 @@ h5 {
     bottom: 0;
 }
 
-
 .details {
     display: none;
-    margin-top:50px;
+    margin-top: 50px;
 }
 
 .manual {
-  width: 960px;
+    width: 960px;
     margin: auto;
     font-size: 20px;
-    margin-top:50px;
+    margin-top: 50px;
 }
 
 .manual ul {
@@ -393,35 +381,37 @@ h5 {
 
 .emph {
     text-decoration: underline;
-    color:blue;
+    color: blue;
     text-transform: uppercase;
 }
 
 .answerField {
-    display:block;
+    display: block;
     margin: 55px auto;
-    text-align:center;
+    text-align: center;
 }
+
 #submitCardNumber, #cardNumber {
-    font-size:24px;
+    font-size: 24px;
 }
+
 .cardPool {
     overflow: hidden;
     text-align: center;
 }
+
 .imgContainer {
     width: 20%;
-    display:inline-block;
-    position:relative;
-    text-align:center;
+    display: inline-block;
+    position: relative;
+    text-align: center;
 }
-
 
 .cardBack {
     transition: all .2s ease-out;
     width: 226px;
     margin: 50px 0 0 0;
-    z-index:1;
+    z-index: 1;
 }
 
 .cardBack::before {
@@ -431,34 +421,40 @@ h5 {
 
 .selectedCard {
     position: absolute;
-    top:5%;
+    top: 5%;
     left: 5%;
 }
 
 .cardImage {
     transition: all .2s ease-out;
-    position:relative;
+    position: relative;
 }
 
 .imgContainer::before {
     transition: all .2s ease-out;
-    content:'';
-    position:absolute;
+    content: '';
+    position: absolute;
     top: 25%;
     left: 32%;
     width: 43%;
     height: 59%;
 }
 
-.imgContainer.selected::before{
+.cardPool.host .imgContainer::before {
+    left: 30%;
+    top: 19%;
+}
+
+.imgContainer.selected::before {
     -webkit-animation: neon5 1.5s ease-in-out infinite alternate;
     -moz-animation: neon5 1.5s ease-in-out infinite alternate;
     animation: neon5 1.5s ease-in-out infinite alternate;
-    content:'';
+    content: '';
     width: 43%;
     height: 59%;
-
-    display:block;
+    left: 30%;
+    top: 19%;
+    display: block;
 
 }
 
